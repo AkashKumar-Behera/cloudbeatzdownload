@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cloudbeatz.web.app/sitemap.xml

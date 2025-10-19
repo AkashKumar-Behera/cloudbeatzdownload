@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CloudBeatz - Download for Windows & Android</title>
+  <link rel="shortcut icon" href="app_icon.ico" type="image/x-icon">
+  <meta name="description"
+    content="CloudBeatz - Download our app for Windows and Android. Screenshots, features and fast, secure downloads. Fully responsive static site." />
+  <link rel="canonical" href="https://cloudbeatz.web.app/">
+  <!-- Open Graph -->
+  <meta property="og:title" content="CloudBeatz - Download for Windows & Android">
+  <meta property="og:description"
+    content="Get CloudBeatz on Windows and Android. View screenshots and download the latest build.">
+  <meta property="og:url" content="https://cloudbeatz.web.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/social-preview.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- JSON-LD SoftwareApplication for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "CloudBeatz",
+    "operatingSystem": "Windows, Android",
+    "applicationCategory": "MultimediaApplication",
+    "aggregateRating": {"@type":"AggregateRating","ratingValue":"4.8","ratingCount":"124"},
+    "offers": {"@type":"Offer","url":"https://cloudbeatz.web.app/","price":"0","priceCurrency":"INR"},
+    "url": "https://cloudbeatz.web.app/",
+    "downloadUrl": "https://cloudbeatz.web.app/downloads/"
+  }
+  </script>
+
+  <link rel="stylesheet" href="public/style.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <div class="brand">
+        <img src="/assets/icon.png" alt="CloudBeatz logo" class="brand-icon">
+        <div class="brand-text">
+          <div class="brand-name">CloudBeatz</div>
+          <div class="brand-sub">Music • Mixer • Offline</div>
+        </div>
+      </div>
+
+      <!-- Responsive main nav: desktop links + mobile hamburger -->
+      <nav class="main-nav" aria-label="Main navigation">
+        <!-- Desktop links (visible by default) -->
+        <ul class="nav-list">
+          <li><a href="#screens">Screenshots</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#download">Download</a></li>
+        </ul>
+
+        <!-- Mobile hamburger button (hidden on desktop) -->
+        <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-controls="mobileMenu"
+          aria-expanded="false">
+          <span class="hamburger" aria-hidden="true"></span>
+        </button>
+
+        <!-- Mobile dropdown menu (hidden, toggled by JS) -->
+        <div id="mobileMenu" class="mobile-menu" role="menu" aria-hidden="true">
+          <ul>
+            <li><a role="menuitem" href="#screens">Screenshots</a></li>
+            <li><a role="menuitem" href="#features">Features</a></li>
+            <li><a role="menuitem" href="#download">Download</a></li>
+          </ul>
+        </div>
+      </nav>
+
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-left">
+        <div class="badge">v1.2.0 • New</div>
+        <h1>CloudBeatz - Your pocket music studio</h1>
+        <p class="lead">Create, mix and export. Works offline. Fast, secure and made for creators.</p>
+
+        <div class="download-group" id="download">
+          <a class="btn primary" href="/assets/CloudBeatz-Setup.exe" data-download-id="CloudBeatz-Setup.exe" download>
+            <svg class="ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path fill="currentColor" d="M5 20h14v-2H5v2zm7-18L5.33 9h3.84v6h4.66V9h3.84L12 2z" />
+            </svg>
+            Download for Windows
+          </a>
+          <a class="btn outline" href="/assets/CloudBeatz.apk" data-download-id="CloudBeatz.apk" download>
+            <svg class="ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path fill="currentColor" d="M12 2l3 5h-2v6h-2V7H9l3-5zM4 10v10h16V10H4z" />
+            </svg>
+            Download APK (Android)
+          </a>
+        </div>
+
+        <div class="meta">
+          <span>Secure HTTPS downloads</span> · <span>Platform builds included</span>
+        </div>
+      </div>
+
+      <aside class="hero-right">
+        <!-- phone mockup for mobile feel + window mockups for desktop -->
+        <div class="mockup">
+          <img src="/assets/1024.png" alt="CloudBeatz preview" class="mockup-img">
+          <div class="mockup-shadow"></div>
+        </div>
+        <div class="quick-stats">
+          <div><strong>4.8</strong><span>★ Rating</span></div>
+          <div><strong id="data-count-target">0</strong><span>Downloads</span></div>
+          <div><strong>Online/Offline</strong><span>Supported</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Screenshots -->
+    <section id="screens" class="section-screens">
+      <h2>Screenshots</h2>
+      <p class="muted">Click to enlarge - desktop shows multiple panels, mobile focuses on phone preview.</p>
+
+      <!-- Desktop grid -->
+      <div class="screens-grid" role="list">
+        <img loading="lazy" src="/assets/windows/1.png" alt="Windows - main screen" data-full="/assets/windows/1.png">
+        <img loading="lazy" src="/assets/windows/2.png" alt="Windows - mixer" data-full="/assets/windows/2.png">
+        <img loading="lazy" src="/assets/windows/3.png" alt="Windows - playlist" data-full="/assets/windows/3.png">
+        <img loading="lazy" src="/assets/windows/4.png" alt="Windows - home" data-full="/assets/windows/4.png">
+        <img loading="lazy" src="/assets/windows/5.png" alt="Windows - editor" data-full="/assets/windows/5.png">
+        <img loading="lazy" src="/assets/windows/6.png" alt="Windows - settings" data-full="/assets/windows/6.png">
+        <img loading="lazy" src="/assets/windows/7.png" alt="Windows - settings" data-full="/assets/windows/7.png">
+        <img loading="lazy" src="/assets/windows/8.png" alt="Windows - settings" data-full="/assets/windows/8.png">
+      </div>
+
+      <!-- Mobile horizontal scroller (visible on small screens) -->
+      <div class="mobile-scroller" aria-hidden="false">
+        <div class="scroller-track">
+          <img loading="lazy" src="/assets/android/1.jpg" alt="Android - home">
+          <img loading="lazy" src="/assets/android/2.jpg" alt="Android - editor">
+          <img loading="lazy" src="/assets/android/3.jpg" alt="Android - settings">
+          <img loading="lazy" src="/assets/android/4.jpg" alt="Android - settings">
+          <img loading="lazy" src="/assets/android/5.jpg" alt="Android - settings">
+          <img loading="lazy" src="/assets/android/6.jpg" alt="Android - settings">
+          <img loading="lazy" src="/assets/android/7.jpg" alt="Android - settings">
+          <img loading="lazy" src="/assets/android/8.jpg" alt="Android - settings">
+          <img loading="lazy" src="/assets/android/9.jpg" alt="Android - settings">
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="features">
+      <div class="feature-card">
+        <h3>Multi-track Mixer</h3>
+        <p class="muted">Precision mixing with effects, automation, and loop layering.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Offline Mode</h3>
+        <p class="muted">Work anywhere - save projects locally and export WAV/MP3.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Cross-platform</h3>
+        <p class="muted">Same experience on Windows and Android - sync when online.</p>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div>© CloudBeatz • Built with ❤️</div>
+      <div class="footer-links">
+        <a href="/privacy.html">Privacy</a>
+        <a href="/sitemap.xml">Sitemap</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- modal -->
+  <div id="modal" class="modal" aria-hidden="true" role="dialog">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <img id="modalImg" src="" alt="Enlarged screenshot">
+  </div>
+
+  <script src="/public/app.js" defer></script>
+  <script src="/app.js" defer></script>
+  <script type="module" src="/download-counter-live.js"></script>
+  <script type="module" src="/public/download-counter-live.js"></script>
+</body>
+
+</html>
