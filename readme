@@ -1,0 +1,194 @@
+CloudBeatz — Deployment Guide
+
+This short guide contains the exact commands and steps you used to build & deploy your Vite app to Firebase Hosting. Save it and reuse next time.
+
+---
+
+1. Prerequisites
+
+* Node.js & npm installed
+* Firebase CLI installed and logged in:
+  npm install -g firebase-tools
+  firebase login
+* Your project initialized with firebase CLI (firebase init hosting) or already has firebase.json & .firebaserc
+
+2. Environment (Vite)
+
+* Put secrets in `.env` with `VITE_` prefix (local dev and build-time replacement):
+  VITE_FIREBASE_API_KEY=...
+  VITE_FIREBASE_AUTH_DOMAIN=...
+  VITE_FIREBASE_PROJECT_ID=...
+  VITE_FIREBASE_DATABASE_URL=...
+  VITE_FIREBASE_STORAGE_BUCKET=...
+  VITE_FIREBASE_MESSAGING_SENDER_ID=...
+  VITE_FIREBASE_APP_ID=...
+  VITE_FIREBASE_MEASUREMENT_ID=...
+
+3. Typical package.json scripts (if missing)
+   {
+   "scripts": {
+   "dev": "vite",
+   "build": "vite build",
+   "preview": "vite preview"
+   }
+   }
+
+4. Build (create production-ready files)
+
+# from project root (where package.json is)
+
+npm install   # if needed
+npm run build
+
+# After this you'll have a `dist/` folder
+
+5. firebase.json (set hosting public to dist)
+   {
+   "hosting": {
+   "public": "dist",
+   "ignore": ["firebase.json","**/.*","**/node_modules/**"],
+   "rewrites": [
+   { "source": "**", "destination": "/index.html" }
+   ]
+   }
+   }
+
+6. Deploy to Firebase Hosting
+
+# make sure firebase project is selected (or use --project <id>)
+
+firebase use --add   # optional, to set active project
+firebase deploy --only hosting
+
+7. Verify
+
+* Open hosting URL (example: [https://PROJECT.web.app](https://PROJECT.web.app))
+* Hard reload: Ctrl+Shift+R
+* DevTools → Network → verify .js and .css files are served from /assets and return 200 (not HTML)
+
+8. Common issues & fixes
+
+* Unexpected token '<' when loading JS
+  -> Means the requested JS returned HTML (usually index.html). Fix: ensure `dist/assets/...` exists and firebase `public` points to `dist`.
+* import.meta.env is undefined
+  -> You deployed raw index.html that contains `import.meta.env` placeholders. Build with Vite so env vars are replaced at build time.
+* 404 on assets
+  -> Check paths in index.html (absolute vs relative) and confirm assets are present in dist folder.
+
+9. Optional: Auto-deploy using GitHub Actions (basic)
+   Create `.github/workflows/firebase-hosting.yml` with:
+
+name: Deploy to Firebase
+on:
+push:
+branches: [ main ]
+
+jobs:
+build-and-deploy:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v4
+- name: Use Node.js
+uses: actions/setup-node@v4
+with:
+node-version: 18
+- name: Install deps
+run: npm ci
+- name: Build
+run: npm run build
+- name: Deploy to Firebase
+uses: FirebaseExtended/action-hosting-deploy@v0
+with:
+repoToken: "${{ secrets.GITHUB_TOKEN }}"
+firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+channelId: live
+
+Notes: create a Firebase service account JSON and add it to GitHub Secrets as FIREBASE_SERVICE_ACCOUNT (base64 or raw JSON as action expects).
+
+10. Quick checklist before deploy
+
+* npm run build => dist created
+* firebase.json public set to "dist"
+* index.html scripts reference built assets (usually handled by Vite)
+* env vars present in .env (VITE_ prefix) before build
+* firebase deploy --only hosting
+
+---
+
+If you want, I can:
+
+* Add a one-click GitHub Actions config prepared for your repo (I will create it as a file)
+* Generate the exact firebaseServiceAccount creation steps
+* Convert this txt into a step-by-step checklist or printable PDF
+
+Save this file and reuse — good job getting it live!
+
+
+## Commands
+
+# Install Firebase CLI globally (only once)
+npm install -g firebase-tools
+
+# Login to Firebase
+firebase login
+
+# Initialize Firebase in your project (only first time)
+firebase init hosting
+
+# Select your Firebase project (optional)
+firebase use --add
+
+# Install all dependencies
+npm install
+
+# Run local dev server
+npm run dev
+
+# Build production files (creates dist/ folder)
+npm run build
+
+# Preview build locally (optional)
+npm run preview
+
+# Deploy hosting (main command)
+firebase deploy --only hosting
+
+# Check current active project
+firebase projects:list
+firebase use
+
+# Set active project manually
+firebase use <project-id>
+
+# Clear and reinstall everything (optional)
+rm -rf node_modules
+npm install
+
+# Update Firebase CLI (optional)
+npm install -g firebase-tools@latest
+
+
+*optional commands
+
+# View Firebase CLI version
+firebase --version
+
+# Emulate hosting locally
+firebase emulators:start
+
+# Logout (if needed)
+firebase logout
+
+# Deploy everything (functions, hosting, etc.)
+firebase deploy
+
+
+
+* json
+{
+  "hosting": {
+    "public": "dist",
+    "ignore": ["firebase.json","**/.*","**/node_modules/**"],
+    "rewrites": [{ "source": "**", "destination": "/index.html" }]
+  }
+}

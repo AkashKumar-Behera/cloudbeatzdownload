@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "mobiletracker-5044e"
+  },
+  "targets": {
+    "mobiletracker-5044e": {
+      "hosting": {
+        "cloudbeatz-site": [
+          "cloudbeatz"
+        ]
+      }
+    }
   }
 }

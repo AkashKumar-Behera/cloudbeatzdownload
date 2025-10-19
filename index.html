@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>CloudBeatz - Download for Windows & Android</title>
-  <link rel="shortcut icon" href="app_icon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon">
   <meta name="description"
     content="CloudBeatz - Download our app for Windows and Android. Screenshots, features and fast, secure downloads. Fully responsive static site." />
   <link rel="canonical" href="https://cloudbeatz.web.app/">
@@ -34,9 +34,650 @@
     "downloadUrl": "https://cloudbeatz.web.app/downloads/"
   }
   </script>
+  <style>
+    /* Base color palette — tuned to blend with your icon (purple / indigo) */
+    :root {
+      --bg-1: #392D71;
+      --bg-2: #1b0f2c;
+      --bg-3: #000000;
+      --accent: #8263ff;
+      /* primary purple from icon */
+      --accent-2: #3d57ff;
+      /* secondary sky blue tint */
+      --muted: #9aa4b2;
+      --card: rgba(255, 255, 255, 0.03);
+      --glass: rgba(255, 255, 255, 0.04);
+      --radius: 12px;
+      --max-width: 1100px;
+    }
 
-  <link rel="stylesheet" href="public/style.css">
-  <link rel="stylesheet" href="/style.css">
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      min-height: 100;
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: #eaf0ff;
+      background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 25%, var(--bg-3) 100%);
+
+    }
+
+
+    .wrap {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 28px
+    }
+
+    /* Header */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center
+    }
+
+    .brand-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 8px 30px rgba(18, 10, 60, 0.6)
+    }
+
+    .brand-name {
+      font-weight: 800;
+      font-size: 18px
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .main-nav a {
+      color: inherit;
+      text-decoration: none;
+      margin-left: 14px;
+      font-weight: 600;
+      opacity: 0.95
+    }
+
+    /* --------------------------
+   Mobile hamburger nav (<=524px)
+   -------------------------- */
+
+    /* base nav layout: keep desktop as before */
+    .main-nav {
+      display: block;
+    }
+
+    .main-nav .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .main-nav .nav-list a {
+      color: inherit;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* hamburger button - hidden on desktop */
+    .nav-toggle {
+      display: none;
+      border: 0;
+      background: transparent;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    /* the three-line hamburger visuals */
+    .nav-toggle .hamburger,
+    .nav-toggle .hamburger::before,
+    .nav-toggle .hamburger::after {
+      content: "";
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform .18s ease, opacity .12s ease;
+      position: relative;
+    }
+
+    .nav-toggle .hamburger::before {
+      transform: translateY(-6px);
+      position: relative;
+    }
+
+    .nav-toggle .hamburger::after {
+      transform: translateY(4px);
+      position: relative;
+    }
+
+    /* active state - cross */
+    .nav-toggle.open .hamburger {
+      background: transparent;
+    }
+
+    .nav-toggle.open .hamburger::before {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .nav-toggle.open .hamburger::after {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* mobile dropdown menu (hidden by default) */
+    .mobile-menu {
+      position: absolute;
+      right: 16px;
+      top: calc(100% + 10px);
+      min-width: 200px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.03));
+      border-radius: 12px;
+      box-shadow: 0 12px 36px rgba(6, 8, 24, 0.48);
+      padding: 8px;
+      opacity: 0;
+      transform: translateY(-6px) scale(.98);
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 1201;
+    }
+
+    /* when open */
+    .mobile-menu.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    /* inner list */
+    .mobile-menu ul {
+      list-style: none;
+      margin: 0;
+      padding: 6px 0;
+    }
+
+    .mobile-menu li {
+      padding: 4px 8px;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 10px 12px;
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .mobile-menu a:hover,
+    .mobile-menu a:focus {
+      background: rgba(255, 255, 255, 0.02);
+      color: #fff;
+      outline: none;
+    }
+
+    /* Responsive breakpoint: hide normal nav and show hamburger */
+    @media (max-width: 524px) {
+      .main-nav .nav-list {
+        display: none;
+      }
+
+      /* hide desktop links */
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      /* show hamburger */
+      /* ensure nav container aligns items nicely */
+      .main-nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: relative;
+      }
+    }
+
+
+    .main-nav a:hover {
+      opacity: 1;
+      color: var(--accent-2)
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 28px;
+      align-items: center;
+      margin-top: 20px
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 10px
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.02;
+      letter-spacing: -0.02em
+    }
+
+    .lead {
+      color: var(--muted);
+      margin-top: 10px;
+      margin-bottom: 18px
+    }
+
+    /* Buttons */
+    .download-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .18s
+    }
+
+    .btn .ico {
+      opacity: 0.95
+    }
+
+    .btn.primary {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(108, 99, 255, 0.18);
+      border: none
+    }
+
+    .btn.primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(108, 99, 255, 0.22)
+    }
+
+    .btn.outline {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: #dfe9ff
+    }
+
+    /* Mobile highlight style for Android download button */
+    .btn.android-highlight {
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      color: #fff;
+      border: none;
+      box-shadow: 0 18px 50px rgba(61, 181, 255, 0.16);
+      transform: translateY(-2px);
+    }
+
+    /* Slightly different focus/hover to feel native on mobile */
+    .btn.android-highlight:active,
+    .btn.android-highlight:focus {
+      transform: translateY(0);
+      box-shadow: 0 10px 30px rgba(61, 181, 255, 0.12);
+    }
+
+    /* Optional: if outline button also has an inner icon, make it visible on highlight */
+    .btn.android-highlight .ico {
+      opacity: 1;
+      filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35));
+    }
+
+    /* Mobile view: make Windows button look transparent / secondary */
+    @media (max-width: 800px) {
+      .btn.primary {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--muted);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: none;
+        transform: none;
+      }
+
+      .btn.primary:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+
+      /* Meanwhile Android stays prominent */
+      .btn.android-highlight {
+        background: linear-gradient(90deg, var(--accent-2), var(--accent));
+        color: #fff;
+        box-shadow: 0 0 40px rgba(61, 181, 255, 0.18);
+        transform: translateY(-2px);
+      }
+    }
+
+    .btn.primary,
+    .btn.android-highlight {
+      backdrop-filter: blur(10px);
+    }
+
+
+
+    /* hero-right mockup */
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px
+    }
+
+    .mockup {
+      position: relative;
+      width: 320px;
+      height: 320px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.06));
+      box-shadow: 0 20px 50px rgba(49, 6, 102, 0.974);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden
+    }
+
+    .mockup-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      filter: drop-shadow(0 30px 40px rgba(12, 8, 40, 0.6))
+    }
+
+    .mockup-shadow {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 30px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.35));
+    }
+
+    /* quick stats */
+    .quick-stats {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 6px
+    }
+
+    .quick-stats>div {
+      background: var(--glass);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      text-align: center
+    }
+
+    .quick-stats strong {
+      display: block;
+      font-size: 16px
+    }
+
+    /* Screenshots grid - desktop */
+    .section-screens {
+      margin-top: 28px
+    }
+
+    .section-screens h2 {
+      margin: 0 0 8px
+    }
+
+    .section-screens .muted {
+      color: var(--muted);
+      margin-bottom: 12px
+    }
+
+    .screens-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px
+    }
+
+    .screens-grid img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 14px 40px rgba(6, 8, 24, 0.55)
+    }
+
+    /* mobile scroller - hidden on desktop */
+    .mobile-scroller {
+      display: none;
+      margin-top: 12px;
+      overflow: hidden
+    }
+
+    .scroller-track {
+      display: flex;
+      gap: 12px;
+      padding-bottom: 10px;
+      overflow-x: auto
+    }
+
+    .scroller-track img {
+      width: 220px;
+      height: 420px;
+      object-fit: cover;
+      border-radius: 18px;
+      flex: 0 0 auto;
+      box-shadow: 0 12px 30px rgba(6, 8, 24, 0.5)
+    }
+
+    /* Smooth transitions for android highlight */
+    .btn,
+    .btn.primary,
+    .btn.outline,
+    .btn.android-highlight {
+      transition: transform .16s ease, box-shadow .18s ease, background .16s ease, color .12s ease;
+    }
+
+    /* keyboard focus */
+    .btn:focus,
+    .modal-close:focus {
+      outline: 3px solid rgba(108, 99, 255, 0.18);
+      outline-offset: 3px;
+    }
+
+    /* mobile scroller nicer feel */
+    .scroller-track {
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+
+    /* subtle scrollbar styling for desktop */
+    .scroller-track::-webkit-scrollbar {
+      height: 8px
+    }
+
+    .scroller-track::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 8px
+    }
+
+
+    /* Features */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 20px
+    }
+
+    .feature-card {
+      background: var(--card);
+      padding: 16px;
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(7, 9, 30, 0.5)
+    }
+
+    .feature-card h3 {
+      margin: 0 0 8px
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    /* Footer */
+    .site-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 34px;
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      margin-left: 12px;
+      text-decoration: none
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(3, 5, 20, 0.8), rgba(2, 6, 20, 0.85));
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1200
+    }
+
+    .modal.open {
+      display: flex
+    }
+
+    .modal img {
+      max-width: 92%;
+      max-height: 92%;
+      border-radius: 10px;
+      box-shadow: 0 40px 120px rgba(3, 5, 20, 0.8)
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 22px;
+      top: 20px;
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.06);
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer
+    }
+
+    /* Responsive adjustments */
+    @media (max-width:1024px) {
+      .hero {
+        grid-template-columns: 1fr 360px
+      }
+
+      .screens-grid img {
+        height: 180px
+      }
+    }
+
+    @media (max-width:800px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 20px
+      }
+
+      .hero-right {
+        order: -1
+      }
+
+      .mockup {
+        width: 260px;
+        height: 260px;
+      }
+
+      .screens-grid {
+        display: none
+      }
+
+      .mobile-scroller {
+        display: block
+      }
+
+      .features {
+        grid-template-columns: 1fr
+      }
+
+      .quick-stats {
+        gap: space-evenly;
+      }
+
+      .brand-icon {
+        width: 48px;
+        height: 48px
+      }
+    }
+
+    @media (max-width:420px) {
+      .mockup {
+        border-radius: 10px;
+        width: 220px;
+        height: 220px;
+      }
+
+      .scroller-track img {
+        width: 180px;
+        height: 320px
+      }
+
+      .hero h1 {
+        font-size: 24px
+      }
+
+      .main-nav a {
+        margin-left: 10px;
+        font-size: 14px
+      }
+
+    }
+  </style>
 </head>
 
 <body>
@@ -85,13 +726,17 @@
         <p class="lead">Create, mix and export. Works offline. Fast, secure and made for creators.</p>
 
         <div class="download-group" id="download">
-          <a class="btn primary" href="/assets/CloudBeatz-Setup.exe" data-download-id="CloudBeatz-Setup.exe" download>
+          <a class="btn primary"
+            href="https://github.com/AkashKumar-Behera/cloudbeatzdownload/releases/download/v1.12.1/CloudBeatz-Setup.exe"
+            data-download-id="CloudBeatz-Setup.exe" download>
             <svg class="ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
               <path fill="currentColor" d="M5 20h14v-2H5v2zm7-18L5.33 9h3.84v6h4.66V9h3.84L12 2z" />
             </svg>
             Download for Windows
           </a>
-          <a class="btn outline" href="/assets/CloudBeatz.apk" data-download-id="CloudBeatz.apk" download>
+          <a class="btn outline"
+            href="https://github.com/AkashKumar-Behera/cloudbeatzdownload/releases/download/v1.12.1/CloudBeatz.apk"
+            data-download-id="CloudBeatz.apk" download>
             <svg class="ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
               <path fill="currentColor" d="M12 2l3 5h-2v6h-2V7H9l3-5zM4 10v10h16V10H4z" />
             </svg>
@@ -182,10 +827,427 @@
     <img id="modalImg" src="" alt="Enlarged screenshot">
   </div>
 
-  <script src="/public/app.js" defer></script>
-  <script src="/app.js" defer></script>
-  <script type="module" src="/download-counter-live.js"></script>
-  <script type="module" src="/public/download-counter-live.js"></script>
-</body>
+  <script type="module">
+    // download-counter-multi.js
+    // Track multiple files; show the sum of their counts in one element by ID.
 
+    // ---------- CONFIG ----------
+    const TRACK_FILES = [
+      "CloudBeatz.apk",
+      "CloudBeatz-Setup.exe"
+    ];
+    const COUNT_ELEMENT_ID = "data-count-target";
+    const COOLDOWN_SECONDS = 10;
+
+    const firebaseConfig = {
+      apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+      authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+      databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+      projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+      storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+      appId: import.meta.env.VITE_FIREBASE_APP_ID,
+      measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+    };
+
+    // ---------- Firebase Imports ----------
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import {
+      getDatabase,
+      ref,
+      runTransaction,
+      onValue,
+      push,
+      set,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // ---------- Helpers ----------
+    function sanitizeKey(name) {
+      return name ? String(name).replace(/[.#$\[\]\/]/g, "_") : "unknown";
+    }
+
+    function getFilenameFromAnchor(a) {
+      if (!a) return null;
+      const explicit = a.getAttribute("data-download-id") || a.getAttribute("data-download-name");
+      if (explicit) return explicit;
+      const dl = a.getAttribute("download");
+      if (dl) return dl;
+      try {
+        const url = new URL(a.href, location.href);
+        return url.pathname.split("/").filter(Boolean).pop() || null;
+      } catch {
+        return null;
+      }
+    }
+
+    function formatWhen(date = new Date()) {
+      const pad = n => String(n).padStart(2, "0");
+      const day = pad(date.getDate());
+      const month = pad(date.getMonth() + 1);
+      const year = date.getFullYear();
+      let hours = date.getHours();
+      const minutes = pad(date.getMinutes());
+      const ampm = hours >= 12 ? "pm" : "am";
+      hours = hours % 12;
+      if (hours === 0) hours = 12;
+      return `${day}/${month}/${year} - ${hours}:${minutes}${ampm}`;
+    }
+
+    function getDeviceName() {
+      try {
+        if (navigator.userAgentData && navigator.userAgentData.brands) {
+          const uaData = navigator.userAgentData;
+          const platform = uaData.platform || navigator.platform || "Unknown";
+          const brand = (uaData.brands[0] && uaData.brands[0].brand) || "";
+          return `${platform} ${brand}`.trim();
+        }
+      } catch { }
+      const ua = navigator.userAgent || navigator.vendor || "Unknown";
+      const paren = ua.match(/\(([^)]+)\)/);
+      if (paren && paren[1]) {
+        const parts = paren[1].split(";").map(s => s.trim()).filter(Boolean);
+        const model = parts.find(p => /Build|Mobile|Nexus|Pixel|SM-|iPhone|iPad|Android/i.test(p));
+        if (model) return model;
+        return parts.join(" / ");
+      }
+      return `${navigator.platform || "Unknown platform"} - ${ua.slice(0, 60)}...`;
+    }
+
+    // ---------- Firebase Operations ----------
+    async function incrementDownloadCount(safeKey) {
+      const countRef = ref(db, `downloads/${safeKey}/count`);
+      return runTransaction(countRef, current => (current || 0) + 1);
+    }
+
+    async function recordDownloadEvent(safeKey, filename) {
+      try {
+        const eventsRef = ref(db, `downloads/${safeKey}/events`);
+        const newRef = push(eventsRef);
+        await set(newRef, {
+          filename,
+          page: location.pathname + location.search,
+          ua: navigator.userAgent,
+          device: getDeviceName(),
+          when: formatWhen(new Date())
+        });
+      } catch (err) {
+        console.warn("recordDownloadEvent failed:", err);
+      }
+    }
+
+    // ---------- Cooldown ----------
+    const cooldownMap = new Map();
+    function isOnCooldown(safeKey) {
+      const t = cooldownMap.get(safeKey);
+      return t && Date.now() < t;
+    }
+    function startCooldown(safeKey, seconds = COOLDOWN_SECONDS) {
+      const until = Date.now() + seconds * 1000;
+      cooldownMap.set(safeKey, until);
+      setTimeout(() => {
+        const cur = cooldownMap.get(safeKey);
+        if (cur && cur <= Date.now()) cooldownMap.delete(safeKey);
+      }, seconds * 1000 + 200);
+    }
+
+    // ---------- Live Sum ----------
+    const trackedSafeKeys = TRACK_FILES.map(sanitizeKey);
+    const liveValues = new Map();
+
+    function updateSumInDOM() {
+      const el = document.getElementById(COUNT_ELEMENT_ID);
+      if (!el) return;
+      let sum = 0;
+      for (const k of trackedSafeKeys) sum += Number(liveValues.get(k) || 0);
+      el.textContent = String(sum);
+    }
+
+    function bindLiveSum() {
+      trackedSafeKeys.forEach(safe => {
+        const countRef = ref(db, `downloads/${safe}/count`);
+        onValue(countRef, snap => {
+          const v = snap.val();
+          liveValues.set(safe, (v === null || v === undefined) ? 0 : Number(v));
+          updateSumInDOM();
+        }, err => console.error("onValue error for", safe, err));
+      });
+    }
+
+    // ---------- Click Handler ----------
+    function handleClick(ev) {
+      if (ev.button !== 0) return;
+      if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+
+      let el = ev.target;
+      while (el && el !== document && el.tagName !== "A") el = el.parentElement;
+      if (!el || el.tagName !== "A") return;
+
+      const a = el;
+      if (!(a.classList.contains("btn") && (a.classList.contains("primary") || a.classList.contains("outline")))) return;
+
+      const href = a.getAttribute("href") || "";
+      const dataId = a.getAttribute("data-download-id") || a.getAttribute("data-download-name") || "";
+      const inferred = getFilenameFromAnchor(a);
+
+      let matchedFile = null;
+      for (const f of TRACK_FILES) {
+        if (dataId === f || inferred === f || href.includes(f)) {
+          matchedFile = f;
+          break;
+        }
+      }
+      if (!matchedFile) return;
+
+      ev.preventDefault();
+      const safe = sanitizeKey(matchedFile);
+
+      if (isOnCooldown(safe)) {
+        navigateToHref(a, href);
+        return;
+      }
+
+      startCooldown(safe);
+      incrementDownloadCount(safe)
+        .then(res => {
+          if (res?.committed);
+        })
+        .catch(err => console.error("[download-counter-multi] increment error:", err));
+
+      recordDownloadEvent(safe, matchedFile).catch(() => { });
+      navigateToHref(a, href);
+    }
+
+    function navigateToHref(a, href) {
+      try {
+        const full = new URL(href, location.href).toString();
+        if (a.target && a.target.toLowerCase() === "_blank") window.open(full, "_blank");
+        else setTimeout(() => location.assign(full), 25);
+      } catch (e) {
+        console.error("navigate fallback:", e);
+        try { a.click(); } catch { }
+      }
+    }
+
+    // ---------- Init ----------
+    document.addEventListener("click", handleClick, { passive: false });
+    window.addEventListener("DOMContentLoaded", () => {
+      bindLiveSum();
+      updateSumInDOM();
+      console.log("Made By Akash");
+    });
+
+    // ---------- Debug Helper ----------
+    window.__downloadCounterMulti = {
+      TRACK_FILES,
+      COUNT_ELEMENT_ID,
+      sanitizeKey,
+      liveValues
+    };
+  </script>
+
+  <script>
+    // app.js — Modal + Android highlight + safe guards + keyboard close
+    (function () {
+      // Helper to run when DOM ready if script not deferred
+      function ready(fn) {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', fn);
+        } else {
+          fn();
+        }
+      }
+
+      // Responsive hamburger menu (<=524px) — toggle + outside click + keyboard
+      (function () {
+        function ready(fn) {
+          if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
+          else fn();
+        }
+
+        ready(function () {
+          const toggle = document.getElementById('navToggle');
+          const menu = document.getElementById('mobileMenu');
+
+          if (!toggle || !menu) return;
+
+          function openMenu() {
+            toggle.classList.add('open');
+            toggle.setAttribute('aria-expanded', 'true');
+            menu.classList.add('open');
+            menu.setAttribute('aria-hidden', 'false');
+            // move focus to first menu item for a11y
+            const first = menu.querySelector('a');
+            if (first) first.focus();
+          }
+          function closeMenu() {
+            toggle.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+            menu.classList.remove('open');
+            menu.setAttribute('aria-hidden', 'true');
+            // return focus to toggle
+            toggle.focus();
+          }
+
+          toggle.addEventListener('click', function (e) {
+            const isOpen = toggle.classList.contains('open');
+            if (isOpen) closeMenu(); else openMenu();
+          });
+
+          // close when clicking outside
+          document.addEventListener('click', function (e) {
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+              if (menu.classList.contains('open')) closeMenu();
+            }
+          });
+
+          // close on Escape
+          document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu();
+          });
+
+          // on resize: if viewport >524, ensure menu closed and desktop nav visible
+          window.addEventListener('resize', function () {
+            if (window.matchMedia('(min-width: 525px)').matches) {
+              // force close if open
+              if (menu.classList.contains('open')) closeMenu();
+            }
+          }, { passive: true });
+        });
+      })();
+
+
+      ready(function () {
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modalImg');
+        const closeBtn = document.getElementById('modalClose');
+
+        /* -------------------------
+           Mobile-detect highlight for Android download button
+           ------------------------- */
+        (function () {
+          function findAndroidButton() {
+            let btn = document.getElementById('download-android');
+            if (btn) return btn;
+            btn = document.querySelector('a[href*="android" i]');
+            if (btn) return btn;
+            btn = document.querySelector('.btn.outline');
+            return btn;
+          }
+
+          function updateAndroidHighlight() {
+            const btn = findAndroidButton();
+            if (!btn) return;
+            const isMobile = window.matchMedia('(max-width: 800px)').matches;
+            if (isMobile) {
+              btn.classList.add('android-highlight');
+              btn.setAttribute('aria-pressed', 'true');
+              btn.setAttribute('aria-label', 'Download CloudBeatz for Android — recommended for mobile');
+            } else {
+              btn.classList.remove('android-highlight');
+              btn.removeAttribute('aria-pressed');
+              btn.removeAttribute('aria-label');
+            }
+          }
+
+          // initial + reactive
+          updateAndroidHighlight();
+          window.addEventListener('resize', () => requestAnimationFrame(updateAndroidHighlight));
+          window.addEventListener('orientationchange', () => setTimeout(updateAndroidHighlight, 200));
+        })();
+
+        /* -------------------------
+           Modal behaviour (safe)
+           ------------------------- */
+        function openModal(src) {
+          if (!modal || !modalImg) return;
+          modalImg.src = src || '';
+          modal.classList.add('open');
+          modal.setAttribute('aria-hidden', 'false');
+          // lock background scroll
+          document.documentElement.style.overflow = 'hidden';
+          // move focus to close button for keyboard users
+          const close = document.getElementById('modalClose');
+          if (close) close.focus();
+        }
+
+        function closeModal() {
+          if (!modal || !modalImg) return;
+          modal.classList.remove('open');
+          modal.setAttribute('aria-hidden', 'true');
+          modalImg.src = '';
+          document.documentElement.style.overflow = '';
+          // restore focus to last interactive element is left as an exercise (you can store it)
+        }
+
+        // attach click listeners to images (if they exist)
+        const imgs = document.querySelectorAll('.screens-grid img, .scroller-track img');
+        if (imgs && imgs.length) {
+          imgs.forEach(img => {
+            // protect against images that don't exist or have no src
+            img.addEventListener('click', () => {
+              const src = img.dataset.full || img.src;
+              if (src) openModal(src);
+            });
+          });
+        }
+
+        // close handlers (if elements exist)
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        if (modal) {
+          modal.addEventListener('click', (e) => {
+            // clicking backdrop closes modal (but not clicks on the image)
+            if (e.target === modal) closeModal();
+          });
+        }
+
+        // keyboard escape closes modal
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
+            closeModal();
+          }
+        });
+
+        /* -------------------------
+           Smooth-scroll for anchors
+           ------------------------- */
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+          a.addEventListener('click', function (e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+          });
+        });
+
+        /* -------------------------
+           Optional: image fallback replacement for broken images
+           ------------------------- */
+        document.querySelectorAll('.screens-grid img, .scroller-track img, .mockup-img').forEach(img => {
+          img.addEventListener('error', () => {
+            // if already replaced, skip
+            if (img.dataset.replaced === '1') return;
+            const wrapper = document.createElement('div');
+            wrapper.className = 'ss-card fallback-card';
+            wrapper.innerHTML = `
+          <div class="fallback" role="img" aria-label="Preview unavailable">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" style="opacity:.95;margin-right:10px">
+              <rect width="24" height="24" rx="4" fill="rgba(255,255,255,0.04)"></rect>
+              <path d="M6 14l3-3 2 2 4-5 3 4" stroke="white" stroke-opacity="0.6" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div>
+              <div style="font-weight:700;color:#e6eef6">Preview unavailable</div>
+              <div style="color:var(--muted);font-size:13px">image missing</div>
+            </div>
+          </div>`;
+            img.replaceWith(wrapper);
+            img.dataset.replaced = '1';
+          });
+        });
+      }); // ready end
+    })();
+
+  </script>
+</body>
 </html>
