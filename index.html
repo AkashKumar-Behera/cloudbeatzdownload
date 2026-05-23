@@ -851,7 +851,8 @@
         </div>
         <div class="quick-stats">
           <div><strong>4.8</strong><span>★ Rating</span></div>
-          <div><strong id="data-count-target">0</strong><span>Downloads</span></div>
+          <div><strong id="data-count-android">0</strong><span>Android DLs</span></div>
+          <div><strong id="data-count-windows">0</strong><span>Windows DLs</span></div>
           <div><strong>Online/Offline</strong><span>Supported</span></div>
         </div>
       </aside>
@@ -1056,11 +1057,23 @@
     const liveValues = new Map();
 
     function updateSumInDOM() {
-      const el = document.getElementById(COUNT_ELEMENT_ID);
-      if (!el) return;
-      let sum = 0;
-      for (const k of trackedSafeKeys) sum += Number(liveValues.get(k) || 0);
-      el.textContent = String(sum);
+      const elAndroid = document.getElementById("data-count-android");
+      const elWindows = document.getElementById("data-count-windows");
+      
+      let sumAndroid = 0;
+      let sumWindows = 0;
+      
+      for (const k of trackedSafeKeys) {
+        const val = Number(liveValues.get(k) || 0);
+        if (k === "CloudBeatz-Setup_exe") {
+          sumWindows += val;
+        } else {
+          sumAndroid += val;
+        }
+      }
+      
+      if (elAndroid) elAndroid.textContent = String(sumAndroid);
+      if (elWindows) elWindows.textContent = String(sumWindows);
     }
 
     function bindLiveSum() {
